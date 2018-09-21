@@ -63,7 +63,6 @@ public class MonoThreadClientHandler implements Runnable {
                 String[] pathInfo 			= path.split("/");
                 String class_name 			= pathInfo[0];
                 String method_name 			= pathInfo[1];
-                System.out.println(class_name+"/"+method_name);
                 params.remove("path");
 
                 try {
@@ -74,12 +73,12 @@ public class MonoThreadClientHandler implements Runnable {
                     Object val = method.invoke(object, params);
                     JSONObject jsonResponse = (JSONObject) val;
                     out.writeUTF(jsonResponse.toString());
+                    // освобождаем буфер сетевых сообщений
+                    out.flush();
+                    System.out.println(jsonResponse.toString());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-                // освобождаем буфер сетевых сообщений
-                out.flush();
 
                 // возвращаемся в началло для считывания нового сообщения
             }
