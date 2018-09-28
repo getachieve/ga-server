@@ -1,6 +1,7 @@
 package com.getachieve.model;
 
 import org.jooq.Field;
+import org.jooq.Record;
 import org.json.JSONObject;
 
 import static org.jooq.impl.DSL.field;
@@ -15,8 +16,14 @@ public class Coord {
     }
 
     public Coord(JSONObject json) {
-        this.lat = json.getDouble("lat");
-        this.lon = json.getDouble("lon");
+        JSONObject location = json.getJSONObject("location");
+        this.lat = location.getDouble("lat");
+        this.lon = location.getDouble("lon");
+    }
+
+    public Coord(Record record) {
+        this.lat = (double) record.getValue("lat");
+        this.lon = (double) record.getValue("lon");
     }
 
     public String toString() {

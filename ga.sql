@@ -1,13 +1,13 @@
--- MySQL dump 10.16  Distrib 10.3.9-MariaDB, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.12, for Linux (x86_64)
 --
 -- Host: 127.0.0.1    Database: getachieve
 -- ------------------------------------------------------
--- Server version	10.3.9-MariaDB-1:10.3.9+maria~xenial-log
+-- Server version	8.0.12
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+ SET NAMES utf8mb4 ;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,7 +21,7 @@
 
 DROP TABLE IF EXISTS `artifact`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `artifact` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(60) NOT NULL,
@@ -45,7 +45,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `artifact_piece`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `artifact_piece` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `artifact_id` int(10) unsigned NOT NULL,
@@ -72,18 +72,20 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `geo_materials`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `geo_materials` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `coord` point NOT NULL,
   `material_id` int(10) unsigned NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
+  `collected` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `geo_materials_fk0` (`material_id`),
   KEY `geo_materials_fk1` (`user_id`),
+  SPATIAL KEY `idx_geo_materials_coord` (`coord`),
   CONSTRAINT `geo_materials_fk0` FOREIGN KEY (`material_id`) REFERENCES `materials` (`id`),
   CONSTRAINT `geo_materials_fk1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -92,7 +94,7 @@ CREATE TABLE `geo_materials` (
 
 LOCK TABLES `geo_materials` WRITE;
 /*!40000 ALTER TABLE `geo_materials` DISABLE KEYS */;
-INSERT INTO `geo_materials` VALUES (1,'\0\0\0\0\0\0\0Xx3H\0xI@ï¿½ï¿½3ï¿½ ?@',2,1),(2,'\0\0\0\0\0\0\0ï¿½ï¿½ï¿½@RI@Lzï¿½Qï¿½ï¿½>@',7,1),(3,'\0\0\0\0\0\0\0ï¿½eï¿½ï¿½K|I@ï¿½Kï¿½ï¿½ï¿½Z?@',6,1),(4,'\0\0\0\0\0\0\0Qï¿½ï¿½ï¿½ï¿½qI@ï¿½ï¿½!ï¿½c?@',4,1),(5,'\0\0\0\0\0\0\0Zï¿½Xï¿½ï¿½JI@7#lï¿½/?@',2,1),(6,'\0\0\0\0\0\0\0\nï¿½ï¿½ï¿½]I@ï¿½ï¿½ï¿½yï¿½>@',5,1),(7,'\0\0\0\0\0\0\0N1ï¿½ï¿½?I@ï¿½uJQï¿½>@',4,1),(8,'\0\0\0\0\0\0\0+ï¿½áœ¨I@ï¿½^ï¿½7?@',6,1),(9,'\0\0\0\0\0\0\0+ï¿½ÛªwI@ï¿½KMï¿½ß­>@',5,1),(10,'\0\0\0\0\0\0\0&ï¿½^ï¿½É£I@ï¿½Õ¼Sï¿½>@',4,1),(11,'\0\0\0\0\0\0\06ï¿½ï¿½ï¿½Å´I@ß£ï¿½ï¿½?@',4,1),(12,'\0\0\0\0\0\0\0ï¿½ï¿½ß†I@ï¿½ï¿½\Zï¿½ï¿½ï¿½>@',1,1),(13,'\0\0\0\0\0\0\0\nï¿½ï¿½ï¿½I@ï¿½ï¿½ï¿½ï¿½_?@',2,1),(14,'\0\0\0\0\0\0\0q(ï¿½wï¿½5I@gï¿½ï¿½eï¿½?@',7,1),(15,'\0\0\0\0\0\0\0~ï¿½ï¿½I@ï¿½ï¿½;ï¿½>@',4,1),(16,'\0\0\0\0\0\0\0Iï¿½UÏ…I@Qï¿½~Ä“?@',1,1),(17,'\0\0\0\0\0\0\01ï¿½ï¿½yI@BÄºï¿½ï¿½>@',6,1),(18,'\0\0\0\0\0\0\06=ï¿½m\r7I@ï¿½ï¿½ï¿½ï¿½tï¿½>@',5,1),(19,'\0\0\0\0\0\0\0ï¿½ã‚ï¿½aI@ï¿½XRï¿½?@',2,1),(20,'\0\0\0\0\0\0\0ï¿½ï¿½ï¿½ï¿½I@5Zï¿½ï¿½\n?@',6,1),(21,'\0\0\0\0\0\0\0|äžšï¿½ï¿½I@ï¿½Vrï¿½?@',6,1),(22,'\0\0\0\0\0\0\0)ï¿½;ï¿½=ï¿½I@ï¿½\0ï¿½x?@',6,1),(23,'\0\0\0\0\0\0\0\"ï¿½ï¿½Yï¿½ï¿½I@4ï¿½ï¿½ï¿½ï¿½>@',1,1),(24,'\0\0\0\0\0\0\0\nï¿½BEï¿½I@è¦}mï¿½>@',4,1),(25,'\0\0\0\0\0\0\0`ï¿½@wlI@]Iï¿½\'Ã“?@',6,1),(26,'\0\0\0\0\0\0\0ï¿½uï¿½Gï¿½<I@ï¿½ï¿½+ï¿½ï¿½>@',1,1),(27,'\0\0\0\0\0\0\0ï¿½yY5\0ï¿½I@ï¿½ï¿½	ï¿½?@',5,1),(28,'\0\0\0\0\0\0\0ï¿½ï¿½;ï¿½ï¿½HI@}ï¿½<ï¿½ï¿½?@',5,1),(29,'\0\0\0\0\0\0\0Bï¿½{ï¿½VI@ï¿½[ï¿½+ï¿½l?@',7,1),(30,'\0\0\0\0\0\0\0ï¿½+Ù¬ï¿½nI@]QÐ«ï¿½>@',2,1),(31,'\0\0\0\0\0\0\0pW\'Uï¿½iI@Eï¿½ï¿½w[ï¿½>@',5,1),(32,'\0\0\0\0\0\0\0Ì³ï¿½|ï¿½I@ï¿½ï¿½<\'ï¿½ï¿½>@',6,1),(33,'\0\0\0\0\0\0\0X+ï¿½ ï¿½LI@\\ï¿½Zj?@',2,1),(34,'\0\0\0\0\0\0\0ï¿½ï¿½ï¿½ï¿½]HI@ï¿½ï¿½!ï¿½I?@',6,1),(35,'\0\0\0\0\0\0\0ï¿½Õ—ï¿½<=I@É¹Gï¿½?@',1,1),(36,'\0\0\0\0\0\0\0(M?=ï¿½^I@hï¿½ï¿½Sï¿½>@',7,1),(37,'\0\0\0\0\0\0\0ï¿½ï¿½ï¿½3ï¿½I@ï¿½ï¿½ï¿½ï¿½ï¿½>@',2,1),(38,'\0\0\0\0\0\0\0\"%<:ï¿½I@ï¿½ï¿½kï¿½ZP?@',1,1),(39,'\0\0\0\0\0\0\0ï¿½ï¿½l-dI@ï¿½Lï¿½fï¿½K?@',4,1),(40,'\0\0\0\0\0\0\0s}Wvï¿½I@ï¿½ï¿½<ï¿½\'ï¿½>@',1,1),(41,'\0\0\0\0\0\0\0ï¿½ï¿½ï¿½zï¿½I@ï¿½ï¿½\nï¿½ï¿½?@',2,1),(42,'\0\0\0\0\0\0\0ï¿½4ï¿½clI@m5ï¿½ï¿½ï¿½?@',1,1),(43,'\0\0\0\0\0\0\0lï¿½ï¿½ï¿½yI@b1{ï¿½3W?@',6,1),(44,'\0\0\0\0\0\0\0ï¿½qï¿½ï¿½]I@ï¿½e_}ï¿½w?@',2,1),(45,'\0\0\0\0\0\0\0ÉžHï¿½I@ï¿½y+ï¿½qL?@',2,1),(46,'\0\0\0\0\0\0\0é‹¸ÓŠï¿½I@ï¿½ÃŒ51ï¿½>@',5,1),(47,'\0\0\0\0\0\0\0ï¿½9Lï¿½ï¿½}I@,ï¿½ï¿½ï¿½ï¿½*?@',5,1),(48,'\0\0\0\0\0\0\0ï¿½4Cï¿½sI@|\rï¿½t?@',1,1),(49,'\0\0\0\0\0\0\0ï¿½ï¿½`ï¿½aI@Mï¿½^	ï¿½ï¿½>@',5,1),(50,'\0\0\0\0\0\0\0\nÏ³ï¿½ï¿½TI@VRï¿½>@',7,1),(51,'\0\0\0\0\0\0\05ï¿½rI@oï¿½rï¿½?@',5,1),(52,'\0\0\0\0\0\0\0ß„ï¿½ï¿½eï¿½I@ï¿½ï¿½Pz?@',1,1),(53,'\0\0\0\0\0\0\0ï¿½8ï¿½I@|ï¿½ï¿½ï¿½ï¿½ï¿½>@',1,1),(54,'\0\0\0\0\0\0\0ï¿½Ê½ï¿½\ZSI@ï¿½uï¿½ï¿½ï¿½>@',2,1),(55,'\0\0\0\0\0\0\0ï¿½Jï¿½gï¿½ï¿½I@ï¿½C4ï¿½\"ï¿½?@',1,1),(56,'\0\0\0\0\0\0\0ï¿½@ï¿½ï¿½wï¿½I@ï¿½ï¿½ï¿½ï¿½?@',2,1),(57,'\0\0\0\0\0\0\0ï¿½Å¨:g?I@ï¿½eï¿½\"\n?@',6,1),(58,'\0\0\0\0\0\0\0ï¿½ï¿½ï¿½nÜ­I@Çºï¿½-ï¿½ï¿½>@',7,1),(59,'\0\0\0\0\0\0\0x^%ï¿½ï¿½lI@ï¿½ï¿½vdï¿½ï¿½?@',5,1),(60,'\0\0\0\0\0\0\0ï¿½pï¿½ï¿½ï¿½ï¿½I@/ï¿½ï¿½ï¿½g-?@',2,1),(61,'\0\0\0\0\0\0\0#ï¿½ï¿½dï¿½I@ï¿½ï¿½ï¿½ï¿½Gï¿½>@',2,1),(62,'\0\0\0\0\0\0\0yï¿½3æƒ’I@ï¿½Çƒ9Ô¦>@',4,1),(63,'\0\0\0\0\0\0\0Æ·ï¿½Iï¿½wI@ï¿½ï¿½ï¿½d5ï¿½>@',5,1),(64,'\0\0\0\0\0\0\0ï¿½\Zï¿½ï¿½\r[I@<â™ƒi2?@',1,1),(65,'\0\0\0\0\0\0\0p^ï¿½ï¿½3ï¿½I@ï¿½ï¿½+ï¿½Gï¿½>@',5,1),(66,'\0\0\0\0\0\0\089ï¿½ï¿½HI@ï¿½ï¿½ï¿½>@',7,1),(67,'\0\0\0\0\0\0\0ï¿½ï¿½0ï¿½ï¿½I@ï¿½>ï¿½6?@',7,1),(68,'\0\0\0\0\0\0\0ï¿½ï¿½ï¿½xï¿½I@	ï¿½Pmï¿½ï¿½>@',1,1),(69,'\0\0\0\0\0\0\0ï¿½fÜ—VI@ï¿½ï¿½Vï¿½?@',4,1),(70,'\0\0\0\0\0\0\0ï¿½q}OI@tW[w\'ï¿½>@',2,1),(71,'\0\0\0\0\0\0\0Hï¿½eI@\Zï¿½ï¿½ï¿½=?@',5,1),(72,'\0\0\0\0\0\0\0ï¿½ï¿½>ï¿½ï¿½I@ï¿½ï¿½\'ï¿½O?@',1,1),(73,'\0\0\0\0\0\0\0ï¿½ï¿½nï¿½CI@%\rï¿½U?@',4,1),(74,'\0\0\0\0\0\0\0Eï¿½$Ó”CI@eï¿½Êï¿½>@',2,1),(75,'\0\0\0\0\0\0\0Gyï¿½nï¿½I@;ï¿½^ï¿½ï¿½A?@',1,1),(76,'\0\0\0\0\0\0\0VyPï¿½yï¿½I@9rï¿½qï¿½ï¿½>@',5,1),(77,'\0\0\0\0\0\0\0,]ï¿½<ï¿½jI@Kï¿½MÖ˜?@',2,1),(78,'\0\0\0\0\0\0\0ï¿½*fo|ï¿½I@FWYï¿½m?@',2,1),(79,'\0\0\0\0\0\0\0ï¿½ï¿½yfnI@,>ï¿½iï¿½?@',6,1),(80,'\0\0\0\0\0\0\0ï¿½(ï¿½ï¿½PI@\'m>7ï¿½?@',7,1),(81,'\0\0\0\0\0\0\0Cï¿½ï¿½cI@\nï¿½Woï¿½^?@',4,1),(82,'\0\0\0\0\0\0\00Dï¿½_ï¿½tI@N0|ï¿½ak?@',5,1),(83,'\0\0\0\0\0\0\0ï¿½ï¿½o3FI@H1ï¿½Nï¿½>@',2,1),(84,'\0\0\0\0\0\0\0~Ø¶ï¿½atI@dï¿½ï¿½0\'ï¿½>@',5,1),(85,'\0\0\0\0\0\0\0ï¿½ï¿½ï¿½}eSI@ï¿½ï¿½ï¿½Paï¿½?@',7,1),(86,'\0\0\0\0\0\0\0>ï¿½~ï¿½I@ï¿½ï¿½ï¿½+\n?@',6,1),(87,'\0\0\0\0\0\0\06ï¿½ï¿½ï¿½4I@ï¿½okyï¿½>@',1,1),(88,'\0\0\0\0\0\0\0%\nï¿½ï¿½zï¿½I@qï¿½Ò»ï¿½>@',6,1),(89,'\0\0\0\0\0\0\0%ï¿½ï¿½Kï¿½ï¿½I@$Egï¿½ï¿½Z?@',5,1),(90,'\0\0\0\0\0\0\0Uï¿½ï¿½7ï¿½II@)+î¶ªo?@',6,1),(91,'\0\0\0\0\0\0\0ï¿½Hcjï¿½_I@ï¿½pï¿½ï¿½rï¿½?@',1,1),(92,'\0\0\0\0\0\0\0>ï¿½ï¿½jï¿½nI@ï¿½|ï¿½]ï¿½ï¿½>@',7,1),(93,'\0\0\0\0\0\0\0ï¿½rï¿½ï¿½ï¿½`I@ï¿½O=ï¿½>@',5,1),(94,'\0\0\0\0\0\0\0ï¿½C\nAï¿½QI@ï¿½ï¿½ï¿½_ï¿½*?@',2,1),(95,'\0\0\0\0\0\0\0\Zï¿½ï¿½I@ï¿½ï¿½ï¿½ï¿½ï¿½?@',7,1),(96,'\0\0\0\0\0\0\0$ï¿½4ï¿½eï¿½I@ï¿½ï¿½\Zï¿½^B?@',6,1),(97,'\0\0\0\0\0\0\0ï¿½nï¿½ï¿½RI@^sï¿½.ï¿½>@',6,1),(98,'\0\0\0\0\0\0\0{\"ï¿½Iï¿½ï¿½I@ï¿½ï¿½`8U	?@',1,1),(99,'\0\0\0\0\0\0\0ï¿½<\\+2vI@ï¿½Æ¢ï¿½`8?@',4,1),(100,'\0\0\0\0\0\0\0ï¿½ï¿½SI@ï¿½ï¿½(?@',5,1),(101,'\0\0\0\0\0\0\0ï¿½BMÑˆï¿½I@s>Wï¿½ï¿½?@',6,1),(102,'\0\0\0\0\0\0\0ï¿½ ï¿½\0~I@ï¿½kXï¿½?@',5,1),(103,'\0\0\0\0\0\0\0NHï¿½!ï¿½I@ï¿½ï¿½ï¿½Bï¿½ï¿½?@',4,1),(104,'\0\0\0\0\0\0\0Q	\\ï¿½gï¿½I@ï¿½ï¿½Pï¿½ï¿½i?@',2,1);
+INSERT INTO `geo_materials` VALUES (1,_binary '\0\0\0\0\0\0\0\ÎdjØ5I@™\Û\÷‡±›>@',6,1,0),(2,_binary '\0\0\0\0\0\0\0\ÝWHm4I@¨‡\r»”ž>@',7,1,0),(3,_binary '\0\0\0\0\0\0\0\\˜>ª5I@:úF¥œ>@',4,1,0),(4,_binary '\0\0\0\0\0\0\0„¸\Õ \n5I@+\É+š>@',2,1,0),(5,_binary '\0\0\0\0\0\0\0\í@cG_4I@qjo	#ž>@',4,1,0),(6,_binary '\0\0\0\0\0\0\0uK\Ý[²3I@ “1\ã™>@',2,1,0),(7,_binary '\0\0\0\0\0\0\0\ÉPÛ§_4I@>¾@{>@',2,1,0),(8,_binary '\0\0\0\0\0\0\0¦\ö¿¯S3I@\Õ\×Ê¶™š>@',7,1,0),(9,_binary '\0\0\0\0\0\0\0§¶\í3I@¿EHY–>@',2,1,0),(10,_binary '\0\0\0\0\0\0\0O=\Äd5I@x4£Yš>@',1,1,0),(11,_binary '\0\0\0\0\0\0\0˜\Õ1…4I@†\Ê;^³ž>@',5,1,0),(12,_binary '\0\0\0\0\0\0\0™2‰\Ýk3I@’ûˆ%ž>@',2,1,0),(13,_binary '\0\0\0\0\0\0\0\ÙJ}“4I@“h›>@',7,1,0);
 /*!40000 ALTER TABLE `geo_materials` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -102,10 +104,11 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `material_synthesis`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `material_synthesis` (
   `child_id` int(10) unsigned NOT NULL,
   `parent_id` int(10) unsigned NOT NULL,
+  `cnt` tinyint(4) NOT NULL,
   PRIMARY KEY (`child_id`,`parent_id`),
   KEY `material_synthesis_fk1` (`parent_id`),
   CONSTRAINT `material_synthesis_fk0` FOREIGN KEY (`child_id`) REFERENCES `materials` (`id`),
@@ -119,7 +122,7 @@ CREATE TABLE `material_synthesis` (
 
 LOCK TABLES `material_synthesis` WRITE;
 /*!40000 ALTER TABLE `material_synthesis` DISABLE KEYS */;
-INSERT INTO `material_synthesis` VALUES (1,3),(2,3);
+INSERT INTO `material_synthesis` VALUES (1,3,1),(2,3,1);
 /*!40000 ALTER TABLE `material_synthesis` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -129,7 +132,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `materials`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `materials` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -155,7 +158,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `task_artifact_piece_reward`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `task_artifact_piece_reward` (
   `task_id` int(10) unsigned NOT NULL,
   `artifact_piece_id` int(10) unsigned NOT NULL,
@@ -181,7 +184,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `task_artifact_required`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `task_artifact_required` (
   `task_id` int(10) unsigned NOT NULL,
   `artifact_id` int(10) unsigned NOT NULL,
@@ -207,7 +210,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `task_material_required`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `task_material_required` (
   `task_id` int(10) unsigned NOT NULL,
   `material_id` int(10) unsigned NOT NULL,
@@ -233,7 +236,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `task_material_reward`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `task_material_reward` (
   `task_id` int(10) unsigned NOT NULL,
   `material_id` int(10) unsigned NOT NULL,
@@ -259,7 +262,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tasks`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `tasks` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -289,13 +292,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tiles_materials`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `tiles_materials` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `coord_sw` point NOT NULL,
-  `coord_ne` point NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+  `lat_south` decimal(4,2) NOT NULL,
+  `lon_west` decimal(5,2) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_tiles_materials_lat_south_lon_west` (`lat_south`,`lon_west`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -304,8 +308,36 @@ CREATE TABLE `tiles_materials` (
 
 LOCK TABLES `tiles_materials` WRITE;
 /*!40000 ALTER TABLE `tiles_materials` DISABLE KEYS */;
-INSERT INTO `tiles_materials` VALUES (1,'\0\0\0\0\0\0\0333333I@ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½>@','\0\0\0\0\0\0\0ï¿½(\\ï¿½ï¿½5I@ï¿½ï¿½Qï¿½ï¿½>@'),(2,'\0\0\0\0\0\0\0333333I@ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½>@','\0\0\0\0\0\0\0ï¿½(\\ï¿½ï¿½5I@ï¿½ï¿½Qï¿½ï¿½>@'),(3,'\0\0\0\0\0\0\0333333I@ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½>@','\0\0\0\0\0\0\0ï¿½(\\ï¿½ï¿½5I@ï¿½ï¿½Qï¿½ï¿½>@'),(4,'\0\0\0\0\0\0\0333333I@ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½>@','\0\0\0\0\0\0\0ï¿½(\\ï¿½ï¿½5I@ï¿½ï¿½Qï¿½ï¿½>@'),(5,'\0\0\0\0\0\0\0333333I@ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½>@','\0\0\0\0\0\0\0ï¿½(\\ï¿½ï¿½5I@ï¿½ï¿½Qï¿½ï¿½>@'),(6,'\0\0\0\0\0\0\0333333I@ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½>@','\0\0\0\0\0\0\0ï¿½(\\ï¿½ï¿½5I@ï¿½ï¿½Qï¿½ï¿½>@'),(7,'\0\0\0\0\0\0\0333333I@ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½>@','\0\0\0\0\0\0\0ï¿½(\\ï¿½ï¿½5I@ï¿½ï¿½Qï¿½ï¿½>@'),(8,'\0\0\0\0\0\0\0333333I@ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½>@','\0\0\0\0\0\0\0ï¿½(\\ï¿½ï¿½5I@ï¿½ï¿½Qï¿½ï¿½>@'),(9,'\0\0\0\0\0\0\0333333I@ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½>@','\0\0\0\0\0\0\0ï¿½(\\ï¿½ï¿½5I@ï¿½ï¿½Qï¿½ï¿½>@'),(10,'\0\0\0\0\0\0\0333333I@ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½>@','\0\0\0\0\0\0\0ï¿½(\\ï¿½ï¿½5I@ï¿½ï¿½Qï¿½ï¿½>@'),(11,'\0\0\0\0\0\0\0333333I@ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½>@','\0\0\0\0\0\0\0ï¿½(\\ï¿½ï¿½5I@ï¿½ï¿½Qï¿½ï¿½>@'),(12,'\0\0\0\0\0\0\0333333I@ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½>@','\0\0\0\0\0\0\0ï¿½(\\ï¿½ï¿½5I@ï¿½ï¿½Qï¿½ï¿½>@');
+INSERT INTO `tiles_materials` VALUES (1,50.40,30.60);
 /*!40000 ALTER TABLE `tiles_materials` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_materials`
+--
+
+DROP TABLE IF EXISTS `user_materials`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `user_materials` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `material_id` int(10) unsigned NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `cnt` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_user_materials_materials_id` (`material_id`),
+  CONSTRAINT `fk_user_materials_materials_id` FOREIGN KEY (`material_id`) REFERENCES `materials` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_materials`
+--
+
+LOCK TABLES `user_materials` WRITE;
+/*!40000 ALTER TABLE `user_materials` DISABLE KEYS */;
+INSERT INTO `user_materials` VALUES (2,6,1,1),(4,3,1,2);
+/*!40000 ALTER TABLE `user_materials` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -314,7 +346,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `user_tasks`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `user_tasks` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `task_id` int(10) unsigned NOT NULL,
@@ -343,7 +375,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `login` varchar(60) NOT NULL,
@@ -383,4 +415,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-21 22:01:16
+-- Dump completed on 2018-09-28 23:36:30

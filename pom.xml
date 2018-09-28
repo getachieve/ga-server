@@ -39,11 +39,11 @@
             <version>3.8</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>
-            <groupId>org.mariadb.jdbc</groupId>
-            <artifactId>mariadb-java-client</artifactId>
-            <version>2.3.0</version>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.12</version>
         </dependency>
 
     </dependencies>
@@ -74,11 +74,11 @@
                 </executions>
 
                 <dependencies>
-                    <!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
+                    <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
                     <dependency>
-                        <groupId>org.mariadb.jdbc</groupId>
-                        <artifactId>mariadb-java-client</artifactId>
-                        <version>2.3.0</version>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>8.0.12</version>
                     </dependency>
 
                 </dependencies>
@@ -89,8 +89,8 @@
 
                     <!-- JDBC connection parameters -->
                     <jdbc>
-                        <driver>org.mariadb.jdbc.Driver</driver>
-                        <url>jdbc:mariadb://localhost:3306/getachieve?serverTimezone=UTC</url>
+                        <driver>com.mysql.cj.jdbc.Driver</driver>
+                        <url>jdbc:mysql://localhost:3306/getachieve?serverTimezone=UTC</url>
                         <user>root</user>
                         <password>sovjelanid</password>
                     </jdbc>
@@ -98,7 +98,7 @@
                     <!-- Generator parameters -->
                     <generator>
                         <database>
-                            <name>org.jooq.meta.mariadb.MariaDBDatabase</name>
+                            <name>org.jooq.meta.mysql.MySQLDatabase</name>
                             <includes>.*</includes>
                             <excludes></excludes>
                             <!-- My options -->

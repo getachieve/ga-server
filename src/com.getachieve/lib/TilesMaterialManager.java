@@ -5,7 +5,7 @@ import com.getachieve.model.Coord;
 import com.getachieve.model.GeoBounds;
 import org.jooq.Record;
 
-import static db.tables.TilesMaterials.TILES_MATERIALS;
+import static db.Tables.TILES_MATERIALS;
 
 public class TilesMaterialManager {
     private static double TILE_WIDTH_DEGREE = 0.02;
@@ -19,10 +19,10 @@ public class TilesMaterialManager {
         return new GeoBounds(sw, ne);
     }
 
-    public boolean existMaterials(Coord location) {
+    public boolean existMaterials(GeoBounds tileBounds) {
         Record tile = Db.create.selectFrom(TILES_MATERIALS)
-                .where(TILES_MATERIALS.COORD_SW.greaterOrEqual(location.toSql()))
-                .and(TILES_MATERIALS.COORD_NE.le(location.toSql()))
+                .where(TILES_MATERIALS.LAT_SOUTH.eq(Db.doubleToDecimal(tileBounds.sw.lat)))
+                .and(TILES_MATERIALS.LON_WEST.eq(Db.doubleToDecimal(tileBounds.sw.lon)))
                 .fetchOne();
 
         return tile != null;
@@ -31,8 +31,8 @@ public class TilesMaterialManager {
     public void create(GeoBounds bounds)
     {
         Db.create.insertInto(TILES_MATERIALS)
-                .set(TILES_MATERIALS.COORD_SW, bounds.sw.toSql())
-                .set(TILES_MATERIALS.COORD_NE, bounds.ne.toSql())
+                .set(TILES_MATERIALS.LAT_SOUTH, Db.doubleToDecimal(bounds.sw.lat))
+                .set(TILES_MATERIALS.LON_WEST, Db.doubleToDecimal(bounds.sw.lon))
                 .execute()
         ;
     }

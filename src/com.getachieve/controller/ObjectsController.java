@@ -4,6 +4,7 @@ import com.getachieve.Session;
 import com.getachieve.lib.MaterialsManager;
 import com.getachieve.lib.TilesMaterialManager;
 import com.getachieve.model.Coord;
+import com.getachieve.model.GeoBounds;
 import org.jooq.tools.json.JSONArray;
 import org.json.JSONObject;
 import java.util.List;
@@ -19,11 +20,12 @@ public class ObjectsController extends Controller {
         MaterialsManager materialsManager = MaterialsManager.getInstance();
         Coord location = new Coord(args);
 
-        if (!tilesManager.existMaterials(location)) {
+        GeoBounds tileBounds = tilesManager.getTileBounds(location);
+        if (!tilesManager.existMaterials(tileBounds)) {
             System.out.println("generate materials");
-            materialsManager.generate(tilesManager.getTileBounds(location), session.getUserId());
+            materialsManager.generate(tileBounds, session.getUserId());
         }
-        List<Map<String, Object>> materials = materialsManager.fetch(location, session.getUserId());
+        List<Map<String, Object>> materials = materialsManager.fetchNearest(location, session.getUserId());
 
         return new JSONObject().put("materials", new JSONArray(materials));
     }

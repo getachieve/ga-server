@@ -1,8 +1,10 @@
 package com.getachieve;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -13,7 +15,23 @@ public class MultiThreadServer {
     private static int port = 4455;
 
     public static void main(String[] args) {
-        new Db();
+        FileInputStream fis;
+        Properties property = new Properties();
+
+        try {
+            fis = new FileInputStream("resources/config.properties");
+            property.load(fis);
+
+            String url = property.getProperty("db.url");
+            String login = property.getProperty("db.login");
+            String password = property.getProperty("db.password");
+
+            new Db(url, login, password);
+
+        } catch (IOException e) {
+            System.err.println("Can't read properties");
+            System.exit(1);
+        }
 
         // стартуем сервер на порту port и инициализируем переменную для обработки консольных команд с самого сервера
         try (ServerSocket server = new ServerSocket(port)) {
