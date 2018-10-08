@@ -1,7 +1,7 @@
 package com.getachieve.controller;
 
 import com.getachieve.Session;
-import com.getachieve.lib.MaterialsManager;
+import com.getachieve.lib.MaterialManager;
 import com.getachieve.lib.TilesMaterialManager;
 import com.getachieve.model.Coord;
 import com.getachieve.model.GeoBounds;
@@ -17,7 +17,7 @@ public class ObjectsController extends Controller {
 
     public JSONObject get(JSONObject args)  {
         TilesMaterialManager tilesManager = TilesMaterialManager.getInstance();
-        MaterialsManager materialsManager = MaterialsManager.getInstance();
+        MaterialManager materialsManager = MaterialManager.getInstance();
         Coord location = new Coord(args);
 
         GeoBounds tileBounds = tilesManager.getTileBounds(location);

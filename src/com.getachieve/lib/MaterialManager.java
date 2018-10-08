@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class MaterialsManager {
+public class MaterialManager {
     private static int MATERIALS_PER_KM2 = 4;
     private static double BOUNDS_WIDTH_DEGREE = 0.05;
     private static double COLLECT_DISTANCE_METRES = 200;
@@ -38,11 +38,12 @@ public class MaterialsManager {
         for (int i = 0; i < materialsPerTile; i++) {
             MaterialsRecord randomMaterial = materials.get(rand.nextInt(materials.size()));
             Coord randomCoord = tileBounds.getRandomCoord();
-            Db.create.insertInto(GEO_MATERIALS)
-                    .set(GEO_MATERIALS.MATERIAL_ID, randomMaterial.getId())
-                    .set(GEO_MATERIALS.USER_ID, uid)
-                    .set(GEO_MATERIALS.COORD, randomCoord.toSql())
-            .execute();
+
+            GeoMaterialsRecord newMaterial = Db.create.newRecord(GEO_MATERIALS);
+            newMaterial.setMaterialId(randomMaterial.getId());
+            newMaterial.setUserId(uid);
+            newMaterial.setCoord(randomCoord.toSql());
+            newMaterial.store();
         }
 
         TilesMaterialManager tilesManager = TilesMaterialManager.getInstance();
@@ -212,17 +213,17 @@ public class MaterialsManager {
 
 
     // Singleton
-    private static volatile MaterialsManager instance;
+    private static volatile MaterialManager instance;
     private static Object mutex = new Object();
-    private MaterialsManager() {
+    private MaterialManager() {
     }
-    public static MaterialsManager getInstance() {
-        MaterialsManager result = instance;
+    public static MaterialManager getInstance() {
+        MaterialManager result = instance;
         if (result == null) {
             synchronized (mutex) {
                 result = instance;
                 if (result == null)
-                    instance = result = new MaterialsManager();
+                    instance = result = new MaterialManager();
             }
         }
         return result;

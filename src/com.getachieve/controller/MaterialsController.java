@@ -1,7 +1,7 @@
 package com.getachieve.controller;
 
 import com.getachieve.Session;
-import com.getachieve.lib.MaterialsManager;
+import com.getachieve.lib.MaterialManager;
 import com.getachieve.model.Coord;
 import db.tables.records.MaterialsRecord;
 import org.json.JSONArray;
@@ -20,7 +20,7 @@ public class MaterialsController extends Controller {
         int geoMaterialId = args.getInt("geoMaterialId");
         Coord location = new Coord(args);
 
-        MaterialsManager materialsManager = MaterialsManager.getInstance();
+        MaterialManager materialsManager = MaterialManager.getInstance();
         boolean res = materialsManager.collect(geoMaterialId, location, session.getUserId());
 
         return new JSONObject().put("status", res);
@@ -28,7 +28,7 @@ public class MaterialsController extends Controller {
 
     public JSONObject getCollectedMaterials(JSONObject args)  {
 
-        MaterialsManager materialsManager = MaterialsManager.getInstance();
+        MaterialManager materialsManager = MaterialManager.getInstance();
         List<Map<String, Object>> materials = materialsManager.fetchCollected(session.getUserId());
 
         return new JSONObject().put("materials", new JSONArray(materials));
@@ -37,7 +37,7 @@ public class MaterialsController extends Controller {
     public JSONObject checkSynthesis(JSONObject args) {
 
         Map<String, Object> materialsMap = args.getJSONObject("materials").toMap();
-        MaterialsManager materialsManager = MaterialsManager.getInstance();
+        MaterialManager materialsManager = MaterialManager.getInstance();
         MaterialsRecord newMaterial = materialsManager.checkSynthesis(materialsMap);
         if (newMaterial == null) {
             return new JSONObject().put("status", false);
@@ -49,7 +49,7 @@ public class MaterialsController extends Controller {
     public JSONObject synthesize(JSONObject args) {
 
         Map<String, Object> materialsMap = args.getJSONObject("materials").toMap();
-        MaterialsManager materialsManager = MaterialsManager.getInstance();
+        MaterialManager materialsManager = MaterialManager.getInstance();
         MaterialsRecord newMaterial = materialsManager.checkSynthesis(materialsMap);
         if (newMaterial == null) {
             return new JSONObject().put("status", false);

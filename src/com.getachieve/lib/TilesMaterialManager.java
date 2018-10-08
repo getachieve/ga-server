@@ -3,6 +3,7 @@ package com.getachieve.lib;
 import com.getachieve.Db;
 import com.getachieve.model.Coord;
 import com.getachieve.model.GeoBounds;
+import db.tables.records.TilesMaterialsRecord;
 import org.jooq.Record;
 
 import static db.Tables.TILES_MATERIALS;
@@ -30,11 +31,10 @@ public class TilesMaterialManager {
 
     public void create(GeoBounds bounds)
     {
-        Db.create.insertInto(TILES_MATERIALS)
-                .set(TILES_MATERIALS.LAT_SOUTH, Db.doubleToDecimal(bounds.sw.lat))
-                .set(TILES_MATERIALS.LON_WEST, Db.doubleToDecimal(bounds.sw.lon))
-                .execute()
-        ;
+        TilesMaterialsRecord newTile = Db.create.newRecord(TILES_MATERIALS);
+        newTile.setLatSouth(Db.doubleToDecimal(bounds.sw.lat));
+        newTile.setLonWest(Db.doubleToDecimal(bounds.sw.lon));
+        newTile.store();
     }
 
 
