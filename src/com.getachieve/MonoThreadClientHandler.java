@@ -1,9 +1,6 @@
 package com.getachieve;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.EOFException;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import org.apache.commons.lang3.text.WordUtils;
@@ -30,7 +27,7 @@ public class MonoThreadClientHandler implements Runnable {
             // инициируем каналы общения в сокете, для сервера
 
             // канал чтения из сокета
-            DataInputStream in = new DataInputStream(clientDialog.getInputStream());
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientDialog.getInputStream()));
             System.out.println("DataInputStream created");
 
             // канал записи в сокет
@@ -45,7 +42,7 @@ public class MonoThreadClientHandler implements Runnable {
 
                     // серверная нить ждёт в канале чтения (inputstream) получения
                     // данных клиента после получения данных считывает их
-                    String entry = in.readUTF();
+                    String entry = in.readLine();
 
                     // и выводит в консоль
                     System.out.println("READ from clientDialog message - " + entry);
@@ -75,7 +72,7 @@ public class MonoThreadClientHandler implements Runnable {
                         Method method = cls.getDeclaredMethod(method_name, JSONObject.class);
                         Object val = method.invoke(object, params);
                         JSONObject jsonResponse = (JSONObject) val;
-                        out.writeUTF(jsonResponse.toString());
+                            out.writeUTF(jsonResponse.toString()+"\n");
                         // освобождаем буфер сетевых сообщений
                         out.flush();
                         System.out.println(jsonResponse.toString());
